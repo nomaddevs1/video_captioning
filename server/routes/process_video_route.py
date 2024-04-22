@@ -56,9 +56,10 @@ def get_video_resolution(video_path: str) -> tuple:
 
 def set_caption_coordinates(video_resolution: tuple, xscale: int, yscale: int) -> tuple:
     # Set the coordinates for captions based on scaling values and video resolution.
-    offset = video_resolution[0]*0.45
-    x = int(0.5*offset+round(xscale / 100 * (video_resolution[0]-offset)))
-    y = int(round(yscale / 100 * video_resolution[1]))
+    offsetx = video_resolution[0]*0.49
+    offsety = video_resolution[1]*0.05
+    x = int(0.5*offsetx+round(xscale / 100 * (video_resolution[0]-offsetx)))
+    y = int(0.2*offsety+round(yscale / 100 * (video_resolution[1]-offsety)))
     return x, y
 
 @router.post("/process-video-with-captions/")

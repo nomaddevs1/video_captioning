@@ -6,7 +6,6 @@ import { TranscriptionProvider } from "src/context/TranscriptionContext";
 import { ToastContainer } from "react-toastify";
 import App from "src/App";
 import theme from "src/theme/theme";
-import { AudioProvider } from "./context/AudioContext";
 import { EditorProvider } from "./context/EditorContext";
 import { TutorialProvider } from "./context/TutorialContext";
 import { ColorModeScript } from '@chakra-ui/react';
@@ -25,9 +24,7 @@ root.render(
         <TutorialProvider>
           <TranscriptionProvider>
             <EditorProvider>
-              <AudioProvider>
-                <App />
-              </AudioProvider>
+              <App />
             </EditorProvider>
           </TranscriptionProvider>
         </TutorialProvider>

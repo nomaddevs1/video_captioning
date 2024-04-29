@@ -5,7 +5,6 @@ import Progress from "src/components/uploads/Progress";
 import UploadedFileInfo from "src/components/uploads/UploadedFileInfo";
 import FileUploadArea from "src/components/uploads/FileUploadArea";
 import { useTranscription } from "src/hooks/useTranscription";
-import { useAudioContext } from "src/context/AudioContext";
 import { useTutorialContext } from "src/context/TutorialContext";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +44,6 @@ function Upload() {
 
   
   
-  const { setAudioFile } = useAudioContext();
   const passTranscript = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -110,7 +108,6 @@ function Upload() {
         setTimeout(() => {
           setIsLoading(false);
         }, 1000);
-        setAudioFile(null); // Clear the audio file from the audio context
         setUploaded(null);
       }
     }

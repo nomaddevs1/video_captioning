@@ -10,7 +10,7 @@ interface ColorPickerInput {
 
 
 const ColorPickerComponent = ({ text, onChange }: ColorPickerInput) => {
-  const [color, setColor] = useColor("#00FF00");
+  const [color, setColor] = useColor("#00cdff");
 
   const handleChange = (value: any) => {
     setColor(value);

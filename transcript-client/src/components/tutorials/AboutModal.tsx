@@ -25,11 +25,11 @@ function AboutModal(){
                 <ModalOverlay />
                 <ModalContent bg = {bgColor}>
                     <Box height="10px" bg="blue.800" borderTopRadius="15px"></Box>
-                    <ModalHeader borderBottom="none" color={titleColor}>About Transcribro</ModalHeader>
+                    <ModalHeader borderBottom="none" color={titleColor}>About Captioning</ModalHeader>
                     <ModalCloseButton mt="2" />
                     <ModalBody pl="6" pr="6" mt="10px" mb="30px">
                         <Text mb="4">
-                            Welcome to Transcribro, the assistive tool to make video content accessible 
+                            Welcome to Captioning, the assistive tool to make video content accessible 
                             to people that are deaf or hard of hearing. Upload any video with spoken audio 
                             and follow the steps to generate video captions.
                         </Text>

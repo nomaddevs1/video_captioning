@@ -17,7 +17,7 @@ const StyleSwitch = ({ label, isChecked, onChange }: StyleSwitchProps) => {
         isChecked={isChecked} 
         onChange={(e) => onChange(e.target.checked)} 
         size="lg" 
-        colorScheme="teal"
+        colorScheme="blue"
       />
     </FormControl>
   );

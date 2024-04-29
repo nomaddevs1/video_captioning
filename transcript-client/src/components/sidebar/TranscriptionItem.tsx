@@ -69,7 +69,6 @@ const TranscriptionBarItem = ({ title, children, toggleSidebar, collapsed }: Tra
         alignItems="center" 
         pos={{base: "absolute", md: "unset"}} 
         top="0" 
-        bg="primary.gray.100" 
         height="40px" 
         zIndex="100" 
         width="95vw"
@@ -93,7 +92,7 @@ const TranscriptionBarItem = ({ title, children, toggleSidebar, collapsed }: Tra
         <Flex flexDirection="column">
         <Button 
           width="100%" 
-          mt="10px"
+          mt="20px"
           onClick={handleDownloadVideoWithCaptions} 
           disabled={isLoading}
           bg={isLoading ? "gray.300" : "blue.200"}

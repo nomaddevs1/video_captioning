@@ -9,6 +9,7 @@ import re
 
 router = APIRouter()
 
+
 def process_video_with_captions(video_path: str, ass_path: str, output_path: str):
     """
     Process the video with captions using ffmpeg.
@@ -23,28 +24,40 @@ def process_video_with_captions(video_path: str, ass_path: str, output_path: str
 
     command = [
         "ffmpeg",
-        "-i", video_path,         # Input video file
-        "-vf", f"ass={ass_path}",  # Overlay captions from ASS file
-        "-c:a", "copy",           # Copy audio codec
-        output_path               # Output path for processed video
+        "-i",
+        video_path,  # Input video file
+        "-vf",
+        f"ass={ass_path}",  # Overlay captions from ASS file
+        "-c:a",
+        "copy",  # Copy audio codec
+        output_path,  # Output path for processed video
     ]
     # Execute the ffmpeg command
     subprocess.run(command)
+
 
 def get_video_resolution(video_path: str) -> tuple:
     try:
         # FFmpeg command to probe video file and extract resolution
         command = [
             "ffprobe",
-            "-v", "error",
-            "-select_streams", "v:0",
-            "-show_entries", "stream=width,height",
-            "-of", "csv=p=0:s=x",
-            video_path
+            "-v",
+            "error",
+            "-select_streams",
+            "v:0",
+            "-show_entries",
+            "stream=width,height",
+            "-of",
+            "csv=p=0:s=x",
+            video_path,
         ]
         # Execute FFmpeg command
-        output = subprocess.check_output(command, stderr=subprocess.STDOUT).decode("utf-8").strip()
-        width, height = map(int, output.split('x'))
+        output = (
+            subprocess.check_output(command, stderr=subprocess.STDOUT)
+            .decode("utf-8")
+            .strip()
+        )
+        width, height = map(int, output.split("x"))
         return width, height
     except subprocess.CalledProcessError as e:
         # Handle subprocess error
@@ -54,20 +67,22 @@ def get_video_resolution(video_path: str) -> tuple:
         print("An error occurred:", e)
         raise
 
+
 def set_caption_coordinates(video_resolution: tuple, xscale: int, yscale: int) -> tuple:
     # Set the coordinates for captions based on scaling values and video resolution.
-    offsetx = video_resolution[0]*0.49
-    offsety = video_resolution[1]*0.05
-    x = int(0.5*offsetx+round(xscale / 100 * (video_resolution[0]-offsetx)))
-    y = int(0.2*offsety+round(yscale / 100 * (video_resolution[1]-offsety)))
+    offsetx = video_resolution[0] * 0.49
+    offsety = video_resolution[1] * 0.05
+    x = int(0.5 * offsetx + round(xscale / 100 * (video_resolution[0] - offsetx)))
+    y = int(0.2 * offsety + round(yscale / 100 * (video_resolution[1] - offsety)))
     return x, y
+
 
 @router.post("/process-video-with-captions/")
 async def process_video_with_captions_route(
     video_file: UploadFile = File(...),
     ass_file: UploadFile = File(...),
     xscale: int = Form(...),
-    yscale: int = Form(...)
+    yscale: int = Form(...),
 ):
     try:
         # Save the uploaded files to temporary directory
@@ -85,10 +100,10 @@ async def process_video_with_captions_route(
 
             # Get video resolution using FFmpeg
             video_resolution = get_video_resolution(video_path)
-            
+
             # Set caption coordinates based on scaling values and video resolution
             x, y = set_caption_coordinates(video_resolution, xscale, yscale)
-            
+
             # Read ASS file content
             with open(ass_path, "r") as ass_file:
                 ass_content = ass_file.read()
@@ -100,7 +115,6 @@ async def process_video_with_captions_route(
                 ass_content = ass_content.replace("{xres}", str(video_resolution[0]))
                 ass_content = ass_content.replace("{yres}", str(video_resolution[1]))
                 ass_file.write(ass_content)
-
 
             # Process video with captions
             output_path = os.path.join(temp_dir, "processed_video.mp4")

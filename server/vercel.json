@@ -2,12 +2,12 @@
   "version": 2,
   "env": {
     "APP_CLIENT_URL": "https://captioning-six.vercel.app",
-    "APP_PORT": "8000",
+    "APP_PORT": "8000"
   },
   "builds": [
     {
       "src": "server.py",
-      "use": "vercel-python@0.3.0"
+      "use": "@vercel/python"
     }
   ],
   "routes": [

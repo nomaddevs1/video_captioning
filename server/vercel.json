@@ -7,7 +7,7 @@
   "builds": [
     {
       "src": "server.py",
-      "use": "vercel-python@0.3.0"
+      "use": "@vercel-python"
     }
   ],
   "routes": [

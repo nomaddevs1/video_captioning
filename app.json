@@ -1,0 +1,14 @@
+{
+    "name": "Combined App",
+    "scripts": {
+        "postdeploy": "cd server && pip install -r requirements.txt && cd ../transcript-client && npm install && npm run build"
+    },
+    "buildpacks":[
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "heroku/nodejs"
+        }
+    ]
+}

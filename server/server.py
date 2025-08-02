@@ -29,6 +29,12 @@ else:
     app = FastAPI()
 
 logging.info(f"Server listening at {HOST_URL}")
+
+# Add root endpoint
+@app.get("/")
+def read_root():
+    return {"message": "Video Captioning API", "status": "running on Railway"}
+
 # Add CORS middleware
 app.include_router(transcribe_route.router)
 app.include_router(pdf_route.router)

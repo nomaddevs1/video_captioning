@@ -39,12 +39,38 @@ src
 ### Starting Up the App
 `uvicorn server:app --reload`
 
-### Test
-`coverage run pytest -v`
+### Testing
 
-### Coverage Reports
+The server includes comprehensive test suites covering:
 
-`coverage report`
+- **API endpoints** (`test_main.py`, `test_generate_vtt.py`)
+- **Core transcription logic** (`test_transcriber.py`)
+- **PDF generation** (`test_pdf_generator.py`)
+- **Logging functionality** (`test_logger.py`)
+
+#### Run Tests
+```bash
+# Run all tests
+pytest -v
+
+# Run with coverage
+coverage run pytest -v
+coverage report
+
+# Run specific test file
+pytest tests/test_main.py -v
+```
+
+#### Test Requirements
+Tests require:
+- `ffmpeg` (for audio processing)
+- `wkhtmltopdf` (for PDF generation)
+- OpenAI API key (mocked in tests)
+
+#### Test Structure
+- `tests/fixtures/` - Test data files (SRT responses, VTT examples)
+- `common_fixtures.py` - Shared test fixtures and mocks
+- Individual test files for each module
 
 ### Documentation
 
@@ -63,11 +89,26 @@ API docs are generated using Swagger. You can access the docs with the `/docs` e
 
 ### Environment Variables<a name="environment-variables"></a>
 
+#### Development
+For local development, you can set these in your shell or create a `.env` file:
+
+```bash
+export OPENAI_API_KEY='your-openai-api-key-here'
+export APP_CLIENT_URL='http://localhost:3000'
+```
+
+#### Production (Railway)
+Set these environment variables in your Railway deployment:
+
 KEY              | DEFAULT                 | DESCRIPTION
 -----------------|-------------------------|-----------------------------------------------------------
-`APP_ADDRESS`    | `http://127.0.0.1`      | Address to listen on
-`APP_PORT`       | `'8000'`                | Port to listen on
-`APP_CLIENT_URL` | `http://127.0.0.1:3000` | URL from which authorized CORS requests should come from
-`APP_LOG_FILE`   | `None`                  | Filepath to save rolling server logs to. If no value is                                           given, logs are not saved to any file.
-`OPENAI_API_KEY` | `None`                  | OpenAI API key used to interface with the Whisper model
-`MODE`           | `DEV`                   | Mode of operation, in `PROD` (production) mode, endpoints like `/doc` and `/redoc` will be disabled
+`APP_ADDRESS`    | `0.0.0.0`               | Address to listen on (use 0.0.0.0 for cloud deployment)
+`APP_PORT`       | `$PORT`                 | Port to listen on (automatically set by cloud platforms)
+`APP_CLIENT_URL` | **Required**            | URL of your frontend (e.g., `https://your-app.vercel.app`)
+`APP_LOG_FILE`   | `None`                  | Filepath to save rolling server logs to. If no value is given, logs are not saved to any file.
+`OPENAI_API_KEY` | **Required**            | OpenAI API key used to interface with the Whisper model
+`MODE`           | `DEV`                   | Mode of operation, in `PROD` (production) mode, endpoints like `/docs` and `/redoc` will be disabled
+
+#### Required for Production:
+- `OPENAI_API_KEY`: Get this from [OpenAI Platform](https://platform.openai.com/api-keys)
+- `APP_CLIENT_URL`: Set to your Vercel frontend URL for CORS configuration

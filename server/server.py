@@ -36,7 +36,7 @@ app.include_router(vtt_route.router)
 app.include_router(process_video_route.router)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[HOST_URL, CLIENT_URL],  # List of allowed origins
+    allow_origins=["*"],  # Allow all origins for Railway deployment
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers

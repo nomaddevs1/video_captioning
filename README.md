@@ -21,7 +21,30 @@ The server documentation provides instructions for setting up the server, runnin
 
 ## Deployment
 
-For details on deploying Transcribro, including setting up a virtual private server (VPS), configuring DNS records, and using Docker and NGINX for serving the application, see the [Deployment Files README](./deployment-files/README.md).
+Transcribro uses modern cloud platforms for reliable and scalable deployment:
+
+### Frontend (Vercel)
+1. **Fork/Clone** this repository to your GitHub account
+2. **Connect to Vercel**: Visit [vercel.com](https://vercel.com) and import your repository
+3. **Select Project Root**: Choose `transcript-client` as your project directory
+4. **Deploy**: Vercel will automatically detect React and deploy your frontend
+
+### Backend (Railway)
+
+1. **Connect to Railway**: Visit [railway.app](https://railway.app) and connect your GitHub repository
+2. **Select Service**: Choose the `server` directory as your service root
+3. **Set Environment Variables**:
+   - `OPENAI_API_KEY`: Your OpenAI API key
+   - `APP_CLIENT_URL`: Your Vercel frontend URL (e.g., `https://your-app.vercel.app`)
+4. **Deploy**: Railway will automatically build and deploy using the `railway.toml` configuration
+
+The Railway configuration includes automatic installation of required system dependencies (Python, FFmpeg, wkhtmltopdf) and handles the build process seamlessly.
+
+### Environment Variables
+Make sure to set these environment variables in your backend deployment:
+- `OPENAI_API_KEY`: Required for Whisper API access
+- `APP_CLIENT_URL`: Frontend URL for CORS configuration
+- `MODE`: Set to `PROD` for production (disables API docs)
 
 ## Contributing
  🚧🚧Still in progress🚧🚧

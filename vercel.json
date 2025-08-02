@@ -1,0 +1,19 @@
+{
+  "buildCommand": "cd transcript-client && npm run build",
+  "outputDirectory": "transcript-client/build", 
+  "installCommand": "cd transcript-client && npm install",
+  "rewrites": [
+    {
+      "source": "/api/transcribe/(.*)",
+      "destination": "/api/transcribe.py"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

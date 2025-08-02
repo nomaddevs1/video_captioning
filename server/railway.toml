@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "never"
+
+[variables]
+APP_ADDRESS = "0.0.0.0"
+APP_PORT = "$PORT"
+MODE = "PROD"

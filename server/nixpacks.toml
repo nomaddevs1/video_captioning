@@ -1,5 +1,7 @@
 [phases.setup]
-nixPkgs = ["python310", "ffmpeg", "wkhtmltopdf"]
+# pango/cairo/gdk-pixbuf/harfbuzz/fontconfig are WeasyPrint's native rendering
+# dependencies (replaces the unmaintained wkhtmltopdf binary)
+nixPkgs = ["python310", "ffmpeg", "pango", "cairo", "gdk-pixbuf", "harfbuzz", "fontconfig"]
 
 [phases.install]
 cmds = ["pip install -r requirements.txt"]

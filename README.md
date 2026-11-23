@@ -38,7 +38,7 @@ Transcribro uses modern cloud platforms for reliable and scalable deployment:
    - `APP_CLIENT_URL`: Your Vercel frontend URL (e.g., `https://your-app.vercel.app`)
 4. **Deploy**: Railway will automatically build and deploy using the `railway.toml` configuration
 
-The Railway configuration includes automatic installation of required system dependencies (Python, FFmpeg, wkhtmltopdf) and handles the build process seamlessly.
+The Railway configuration includes automatic installation of required system dependencies (Python, FFmpeg, WeasyPrint's rendering libraries) and handles the build process seamlessly.
 
 ### Environment Variables
 Make sure to set these environment variables in your backend deployment:

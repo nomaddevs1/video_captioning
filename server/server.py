@@ -1,9 +1,7 @@
-import openai
 from config import (
     ADDRESS,
     CLIENT_URL,
     HOST_URL,
-    OPENAI_API_KEY,
     LOG_FILE,
     PORT,
     MODE,
@@ -13,12 +11,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import pdf_route, transcribe_route, vtt_route, process_video_route
 from logger import init_logger
+import openai_client  # noqa: F401  (initializes the shared OpenAI client at startup)
 import logging
 import uvicorn
 
 # remove API keys and other sensitive info from system environment variables:
 scrub_sensitive_environment_variables()
-openai.api_key = OPENAI_API_KEY
 init_logger(LOG_FILE)
 
 app: FastAPI = None

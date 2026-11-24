@@ -3,8 +3,8 @@ from models.status import ErrorMessage
 from pydantic import BaseModel
 from utils import srt_time_to_seconds
 from .util import chunkify_mp3, compress_audio_file
+from openai_client import client
 import re
-import openai
 import os
 import logging
 
@@ -158,7 +158,7 @@ def transcribe_file(file: BinaryIO, language: str, file_size_limit: int) -> Tran
         compressed_audio_file.close()
         transcript = transcribe_files(files, language, file_size_limit)
     else:
-        whisper_transcript_srt = openai.Audio.transcribe(
+        whisper_transcript_srt = client.audio.transcriptions.create(
             file=compressed_audio_file,
             model="whisper-1",
             response_format="srt",

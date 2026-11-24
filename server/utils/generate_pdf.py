@@ -1,7 +1,9 @@
 import logging
-import pdfkit
+from weasyprint import HTML, CSS
 
 from .render_template import render_template
+
+PAGE_MARGIN_CSS = CSS(string="@page { margin: 1in; }")
 
 
 def render_html(data: dict) -> str:
@@ -13,17 +15,4 @@ def render_html(data: dict) -> str:
 
 def generate_pdf(html_data: str):
     logging.info("generating pdf file...")
-    return pdfkit.from_string(
-        html_data,
-        False,
-        options={
-            "margin-top": "1in",
-            "margin-bottom": "1in",
-            "margin-left": "1in",
-            "margin-right": "1in",
-            "enable-javascript": True,
-            "javascript-delay": 1000,  # may need to adjust the delay
-            "no-stop-slow-scripts": True,
-            "encoding": "UTF-8",
-        },
-    )
+    return HTML(string=html_data).write_pdf(stylesheets=[PAGE_MARGIN_CSS])

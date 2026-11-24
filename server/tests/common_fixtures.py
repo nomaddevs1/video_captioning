@@ -34,7 +34,7 @@ def srt_response() -> Generator[str, None, None]:
 @pytest.fixture
 def mock_openai_transcribe(srt_response):
     with patch(
-        "server.openai.Audio.transcribe",
+        "transcriber.transcribe.client.audio.transcriptions.create",
         return_value=srt_response,
     ) as mock:
         yield mock
